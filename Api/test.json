@@ -1,0 +1,22 @@
+
+
+
+{
+    "name": "Building A",
+    "city": "Adana",
+    "neighborhood": "Cukurova",
+    "hosts": [
+    {
+    "name": "Host 1",
+    "contactNo": "555-555-1212",
+    "status": "Yardim Ediliyor"
+    },
+    {
+    "name": "Host 2",
+    "contactNo": "555-555-1213",
+    "status": "Yardim Bekleniyor"
+    }
+    ]
+    }
+
+
