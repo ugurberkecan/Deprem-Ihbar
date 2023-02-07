@@ -1,13 +1,14 @@
 const mongoose = require('mongoose');
 const app = require('./config/express');
-require("dotenv").config();
+const path = require('path');
 
-const url = process.env.MONGO_URL;
+
+require('dotenv').config({ path: path.join(__dirname, '/.env') });
 
 
 mongoose.set('strictQuery', false);
 
-mongoose.connect(url, {
+mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
