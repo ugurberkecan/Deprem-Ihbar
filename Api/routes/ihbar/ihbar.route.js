@@ -226,7 +226,7 @@ router.get('/yardim', async (req, res) => {
     }
 });
 
-app.get('/yardim/:id', async (req, res) => {
+router.get('/yardim/:id', async (req, res) => {
     try {
         const supply = await Supply.findById(req.params.id);
         if (!supply) return res.status(404).send({ error: 'Supply not found' });
@@ -236,7 +236,7 @@ app.get('/yardim/:id', async (req, res) => {
     }
 });
 
-app.get('/yardim/:city/:district', async (req, res) => {
+router.get('/yardim/:city/:district', async (req, res) => {
     try {
         const city = req.params.city;
         const district = req.params.district;
