@@ -36,3 +36,75 @@
     transform: rotate(360deg);
   }
 }
+
+.info-card-main {
+  border-radius: 8px;
+  border: 1px solid #d9d9d9;
+  padding: 10px;
+  background-color: lightgray;
+}
+
+.info-card-main p {
+  margin: 10px 0;
+}
+
+.info-fullname {
+  margin-top: 0px;
+  margin-bottom: 0;
+}
+
+.info-status {
+}
+
+.info-address-district {
+  color: rgb(119, 139, 139);
+  font-weight: 600;
+}
+
+.info-city {
+  color: #3378df;
+  margin-bottom: 0 !important;
+}
+
+.info-card-display-main {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+  grid-gap: 20px;
+}
+
+.info-status-sub {
+  color: rgb(213, 76, 76);
+  font-weight: bold;
+}
+
+.card-info-container {
+  padding: 20px;
+}
+
+.info-tel {
+  color: rgb(29, 18, 173);
+}
+
+@media screen and (max-width: 1200px) {
+  .info-card-display-main {
+    grid-template-columns: auto auto auto auto;
+  }
+}
+
+@media screen and (max-width: 990px) {
+  .info-card-display-main {
+    grid-template-columns: auto auto auto;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .info-card-display-main {
+    grid-template-columns: auto auto;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .info-card-display-main {
+    grid-template-columns: auto;
+  }
+}
