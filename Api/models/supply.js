@@ -2,8 +2,19 @@ const mongoose = require('mongoose');
 
 
 
-const buildingSchema = new mongoose.Schema({
-    name: String,
+const supplySchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    no: {
+        type: String,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true
+    },
     city: {
         type: Object,
         enum: [
@@ -19,24 +30,18 @@ const buildingSchema = new mongoose.Schema({
             { name: 'Malatya', districts: ["Akcadag", "Arapgir", "Arguvan", "Battalgazi", "Darende", "Dogansehir","Doganyol", "Hekimhan", "Kale", "Kuluncak", "Pütürge", "Yazihan", "Yesilyurt"] },
         ],
     },
-    neighborhood: String,
-    hosts: [
-        {
-            name: String,
-            contactNo: String,
-            status: {
-                type: String,
-                enum: ['Yardim Bekleniyor', 'Yardim Ediliyor', 'Yardim edildi'],
-                default: 'Yardim Bekleniyor'
-            }
-        }
-    ],
+    address: {
+        type: String,
+        required: true
+    },
+    status: {
+        type: String,
+        required: true
+    },
     createdAt: {
         type: Date,
         default: Date.now
     }
 });
 
-const Building = mongoose.model('Building', buildingSchema);
-
-module.exports = Building;
+module.exports = mongoose.model('SupplySchema', supplySchema);
