@@ -1,28 +1,21 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
-export default function InfoCard() {
-
-  const expData = {
-    name: 'Eren Kurt',
-    status: 'Bilinmiyor',
-    description: '1 gundur haber alinamiyor',
-    address: {
-      province: 'Ankara',
-      city: 'Cankaya',
-      district: 'Karsiyaka Mahallesi',
-      other: 'Daire 15 Cinar apartmani no 9'
-    },
-    contact: '90 545 567 23 23',
-  }
+export default function InfoCard({data}) {
 
   return (
     <div className="info-card-main">
-      <h3 className="info-fullname">{expData.name}</h3>
-      <p className="info-status">Durum: <span className="info-status-sub">{expData.status}</span></p>
-      <p className="info-description">{expData.description}</p>
-      <p className="info-address"><span className="info-address-district">{expData.address.district}</span> {expData.address.other}</p>
-      <p>Tel: <span className="info-tel">{expData.contact}</span></p>
-      <p className="info-city">{expData.address.province} / {expData.address.city}</p>
+      {
+        data.hosts.map((item) => 
+          <div key={item._id}>
+            <h3 className="info-fullname">{item.name}</h3>
+            <p className="info-status">Durum: <span className="info-status-sub">{item.status}</span></p>
+            <p>Tel: <span className="info-tel">{data.contactNo}</span></p>
+          </div>
+        )
+      }
+      <p className="info-description">{data.createdAt}</p>
+      <p className="info-address"><span className="info-address-district">{data.neighborhood}</span> {data.name}</p>
+      <p className="info-city">{data.city.name} / {data.city.districts[0]}</p>
     </div>
   )
 }
