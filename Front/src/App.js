@@ -9,7 +9,7 @@ const App = () => {
   const [searchParam, setSearchParam] = useState('');
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch('http://localhost:4000/api/ihbar/yardim');
+      const res = await fetch('https://deprem-ihbar-dm61.vercel.app/api/ihbar/yardim');
       console.log(res);
       const data = await res.json();
     };
@@ -19,7 +19,7 @@ const App = () => {
   
   const search = async (param) => {
     console.log(param)
-    const response = await axios.get(`http://localhost:4000/api/ihbar/yardim/search?name=${param}`);
+    const response = await axios.get(`https://deprem-ihbar-dm61.vercel.app/api/ihbar/yardim/search?name=${param}`);
     setSearchData(response.data);
     setSearchParam(param);
     console.log(response.data)

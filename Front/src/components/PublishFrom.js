@@ -64,7 +64,7 @@ const PublishFrom = () => {
 
   const SubmitData = async () => {
     console.log(data);
-    const respPost = await axios.post('http://localhost:4000/api/ihbar/yardim', data);
+    const respPost = await axios.post('https://deprem-ihbar-dm61.vercel.app/api/ihbar/yardim', data);
     if(respPost.status === 200) {
         window.location.replace('/');
     } else (

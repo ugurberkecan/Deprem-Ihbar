@@ -1,9 +1,22 @@
 const express = require('express');
 const router = express.Router();
 const Help = require('../../models/help');
+const { check, validationResult } = require('express-validator');
 
 
-router.post('/yardim', async (req, res, next) => {
+router.post('/yardim', [
+    check('name').not().isEmpty().withMessage('Name is required'),
+    check('city').not().isEmpty().withMessage('City is required'),
+    check('type').not().isEmpty().withMessage('Type is required'),
+    check('neighborhood').not().isEmpty().withMessage('Neighborhood is required'),
+    check('description').not().isEmpty().withMessage('Description is required'),
+    check('phoneNumber').not().isEmpty().withMessage('Phone number is required'),
+], async (req, res, next) => {
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
     try {
         const { name, city, type, neighborhood, description, phoneNumber } = req.body;
         let help = await Help.findOne({ name, city, neighborhood, phoneNumber, description });
@@ -51,14 +64,16 @@ router.get('/yardim/:city/:district', async (req, res) => {
 router.get('/yardim/search', async (req, res) => {
     const { name } = req.query;
     try {
-        const query = { $or: [
-            { name: { $regex: name, $options: 'i' } },
-            { 'city.name': { $regex: name, $options: 'i' } },
-            { 'city.districts': { $regex: name, $options: 'i' } },
-            { neighborhood: { $regex: name, $options: 'i' } },
-            { description: { $regex: name, $options: 'i' } },
-            { phoneNumber: { $regex: name, $options: 'i' } },
-        ]};
+        const query = {
+            $or: [
+                { name: { $regex: name, $options: 'i' } },
+                { 'city.name': { $regex: name, $options: 'i' } },
+                { 'city.districts': { $regex: name, $options: 'i' } },
+                { neighborhood: { $regex: name, $options: 'i' } },
+                { description: { $regex: name, $options: 'i' } },
+                { phoneNumber: { $regex: name, $options: 'i' } },
+            ]
+        };
         const helps = await Help.find(query);
         res.send(helps);
     } catch (error) {
