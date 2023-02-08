@@ -68,7 +68,7 @@ const PublishFrom = () => {
     if(respPost.status === 200) {
         window.location.replace('/');
     } else (
-        console.log("hata")
+        alert("Lutfen tum formu eksiksiz doldurunuz")
     )
   }
 
@@ -76,6 +76,8 @@ const PublishFrom = () => {
   console.log(provinceIndex);
   return (
     <div className="publish-form-main">
+      
+      <a href='/' className="publish-button" style={{background: '#5353eb',textDecoration:'none'}} >ANA SAYFAYA DON</a>
       <select name="Il" onChange={(e) => SelectProvince(e.target.value)}>
         {
           Places.map((item, i) =>

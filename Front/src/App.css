@@ -42,7 +42,7 @@
   border: 1px solid #d9d9d9;
   padding: 10px;
   background-color: lightgray;
-  height: fit-content;
+  height: 100%;
 }
 
 .info-card-main p {
@@ -69,8 +69,9 @@
 
 .info-card-display-main {
   display: grid;
-  grid-template-columns: auto auto auto auto auto;
+  grid-template-columns: 20% 20% 20% 20% 20%;
   grid-gap: 20px;
+  width: calc(100% - 80px);
 }
 
 .info-status-sub {
@@ -102,7 +103,7 @@
   border: 2px solid #d9d9d9;
   color: rgb(41, 41, 41);
   border-radius: 8px;
-  width: 50vh;
+  width: 50%;
 }
 
 .form-input{
@@ -112,7 +113,7 @@
   border: 2px solid #d9d9d9;
   color: rgb(41, 41, 41);
   border-radius: 8px;
-  width: 50vh;
+  width: 100%;
   margin: 10px 0;
 }
 
@@ -131,10 +132,10 @@
   border: none;
   color: white;
   margin-bottom: 20px;
+  border-radius: 16px;
 }
 
 select {
-  width: 50vh;
   padding: 10px 14px;
   font-size: 16px;
   border: 2px solid #d9d9d9;
@@ -142,6 +143,7 @@ select {
   border-radius: 8px;
   margin: 10px 0;
   outline: none;
+  width: 100%;
 }
 
 .publish-form-main{
@@ -149,28 +151,75 @@ select {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 80%;
+  margin: auto;
+  min-height: 100vh;
 }
 
 @media screen and (max-width: 1200px) {
   .info-card-display-main {
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: 25% 25% 25% 25%;
+    width: calc(100% - 60px);
+  }
+
+  select {
+    width: 60%;
+  }
+
+  .form-input {
+    width: 60%;
   }
 }
 
 @media screen and (max-width: 990px) {
   .info-card-display-main {
-    grid-template-columns: auto auto auto;
+    grid-template-columns: 33.3% 33.3% 33.3%;
+    width: calc(100% - 40px);
+  }
+
+  select {
+    width: 70%;
+  }
+
+  .form-input {
+    width: 70%;
   }
 }
 
 @media screen and (max-width: 700px) {
   .info-card-display-main {
-    grid-template-columns: auto auto;
+    grid-template-columns: 50% 50%;
+    width: calc(100% - 20px);
+  }
+
+  select {
+    width: 80%;
+  }
+
+  .form-input {
+    width: 80%;
+  }
+
+  .search-input {
+    width: 80%;
   }
 }
 
 @media screen and (max-width: 500px) {
   .info-card-display-main {
-    grid-template-columns: auto;
+    grid-template-columns: 100%;
+    width: calc(100% - 0px);
+  }
+
+  select {
+    width: 90%;
+  }
+
+  .form-input {
+    width: 90%;
+  }
+
+  .search-input {
+    width: 80%;
   }
 }
