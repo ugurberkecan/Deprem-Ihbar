@@ -4,9 +4,7 @@ const mongoose = require('mongoose');
 
 const helpSchema = new mongoose.Schema({
     name: String,
-    type: {
-        enum: ['Barinma', 'Yiyecek', 'Isinma', 'Diger']
-    },
+    type: String,
     city: {
         type: Object,
         enum: [

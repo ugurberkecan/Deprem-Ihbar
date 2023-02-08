@@ -5,11 +5,12 @@ const Help = require('../../models/help');
 
 router.post('/yardim', async (req, res, next) => {
     try {
-        const { name, city, neighborhood, description, phoneNumber } = req.body;
+        const { name, city, type, neighborhood, description, phoneNumber } = req.body;
         let help = await Help.findOne({ name, city, neighborhood, phoneNumber, description });
         if (!help) {
             help = new Help({
                 name,
+                type,
                 city,
                 neighborhood,
                 phoneNumber,

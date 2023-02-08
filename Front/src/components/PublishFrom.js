@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, {useEffect, useState} from 'react'
 
 const Places = [
@@ -21,17 +22,15 @@ const needEnum = [
 const PublishFrom = () => {
   const [provinceIndex, setProvinceIndex] = useState(0);
   const [data, setData] = useState({
-    type: null,
+    type: 'Diger',
     city: {
-      name: null,
-      districts: null,
+      name: 'Hatay',
+      districts: 'Antakya',
     },
     name: null,
     neighborhood: null,
     description: null,
     phoneNumber: null,
-
-    
   });
   
   const SelectProvince = (param) => {
@@ -48,7 +47,7 @@ const PublishFrom = () => {
   }
 
   const TypeFullName = (param) => {
-    setData({data, name: param});
+    setData({...data, name: param});
   }
 
   const TypeContactNo = (param) => {
@@ -64,7 +63,13 @@ const PublishFrom = () => {
   }
 
   const SubmitData = async () => {
-    
+    console.log(data);
+    const respPost = await axios.post('http://localhost:4000/api/ihbar/yardim', data);
+    if(respPost.status === 200) {
+        window.location.replace('/');
+    } else (
+        console.log("hata")
+    )
   }
 
   useEffect(() => {});
