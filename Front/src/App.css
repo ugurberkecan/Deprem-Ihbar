@@ -105,6 +105,17 @@
   width: 50vh;
 }
 
+.form-input{
+  outline: none;
+  padding: 10px 14px;
+  font-size: 16px;
+  border: 2px solid #d9d9d9;
+  color: rgb(41, 41, 41);
+  border-radius: 8px;
+  width: 50vh;
+  margin: 10px 0;
+}
+
 .search-input:focus {
   outline: none;
   border: 2px solid #9a9a9a;
@@ -120,6 +131,24 @@
   border: none;
   color: white;
   margin-bottom: 20px;
+}
+
+select {
+  width: 50vh;
+  padding: 10px 14px;
+  font-size: 16px;
+  border: 2px solid #d9d9d9;
+  color: rgb(41, 41, 41);
+  border-radius: 8px;
+  margin: 10px 0;
+  outline: none;
+}
+
+.publish-form-main{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 @media screen and (max-width: 1200px) {

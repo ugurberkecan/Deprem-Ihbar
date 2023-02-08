@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import InfoCardMap from './components/InfoCardMap';
 import './App.css';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const App = () => {
   const [searchData, setSearchData] = useState([]);
@@ -26,7 +27,9 @@ const App = () => {
   return (
     <div>
       <div className="search-input-side">
-        <button className="publish-button">ILAN EKLE</button>
+        <Link to='/ilan-ekle'>
+          <button className="publish-button">ILAN EKLE</button>
+        </Link>
         <input className="search-input" placeholder='Arama' onChange={(e) => search(e.target.value)} />
       </div>
       <div className='card-info-container'>
