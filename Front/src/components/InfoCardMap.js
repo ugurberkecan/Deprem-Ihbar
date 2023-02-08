@@ -7,7 +7,7 @@ export default function InfoCardMap({searchDatas, searchParam}) {
 
   useEffect(() => {
     const FetchData = async (data) => {
-      const response = await axios.get('http://localhost:5000/api/ihbar/bina');
+      const response = await axios.get('http://localhost:4000/api/ihbar/yardim');
       setDatas(response.data);
     }
 

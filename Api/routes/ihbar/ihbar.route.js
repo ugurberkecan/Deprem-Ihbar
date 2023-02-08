@@ -1,82 +1,77 @@
 const express = require('express');
 const router = express.Router();
-const Building = require('../../models/building');
-const Traffic = require('../../models/traffic');
+const Help = require('../../models/help');
 
-router.post('/bina', async (req, res, next) => {
+
+router.post('/yardim', async (req, res, next) => {
     try {
-        const { name, city, neighborhood, hosts } = req.body;
-        let building = await Building.findOne({ name, city, neighborhood });
-        if (!building) {
-            building = new Building({
+        const { name, city, neighborhood, description, phoneNumber } = req.body;
+        let help = await Help.findOne({ name, city, neighborhood, phoneNumber, description });
+        if (!help) {
+            help = new Help({
                 name,
                 city,
                 neighborhood,
-                hosts: []
+                phoneNumber,
+                description
             });
         }
-        hosts.forEach(host => {
-            building.hosts.push({
-                name: host.name,
-                contactNo: host.contactNo,
-                status: host.status
-            });
-        });
-        await building.save();
-        res.send({ message: 'Building saved successfully', building });
+        await help.save();
+        res.send({ message: 'help saved successfully', help });
     } catch (err) {
         next(err);
     }
 });
 
-router.get('/bina', async (req, res, next) => {
+router.get('/yardim', async (req, res, next) => {
     try {
-        const buildings = await Building.find({});
-        res.send(buildings);
+        const helps = await Help.find({});
+        res.send(helps);
     } catch (error) {
         res.status(500).send(error);
     }
 });
 
-router.get('/bina/:city/:district', async (req, res) => {
+router.get('/yardim/:city/:district', async (req, res) => {
     const city = req.params.city;
     const district = req.params.district;
 
     try {
-        const buildings = await Building.find({
+        const helps = await Help.find({
             'city.name': city,
             'city.districts': district
         });
-        res.send(buildings);
+        res.send(helps);
     } catch (err) {
         res.status(500).send(err);
     }
 });
 
-router.get('/bina/search', async (req, res) => {
-    const { name, hostName } = req.query;
+router.get('/yardim/search', async (req, res) => {
+    const { name } = req.query;
     try {
-        const query = {};
-        if (name) {
-            query.name = { $regex: name, $options: 'i' };
-        }
-        if (hostName) {
-            query['hosts.name'] = { $regex: hostName, $options: 'i' };
-        }
-        const buildings = await Building.find(query);
-        res.send(buildings);
+        const query = { $or: [
+            { name: { $regex: name, $options: 'i' } },
+            { 'city.name': { $regex: name, $options: 'i' } },
+            { 'city.districts': { $regex: name, $options: 'i' } },
+            { neighborhood: { $regex: name, $options: 'i' } },
+            { description: { $regex: name, $options: 'i' } },
+            { phoneNumber: { $regex: name, $options: 'i' } },
+        ]};
+        const helps = await Help.find(query);
+        res.send(helps);
     } catch (error) {
         res.status(500).send(error);
     }
 });
 
-router.get('/bina/:id', async (req, res, next) => {
+router.get('/yardim/:id', async (req, res, next) => {
     try {
-        const building = await Building.findById(req.params.id);
-        if (!building) {
-            return res.status(404).send({ message: 'Building not found' });
+        const help = await help.findById(req.params.id);
+        if (!help) {
+            return res.status(404).send({ message: 'help not found' });
         }
-        res.send(building);
+        res.send(help);
     } catch (err) {
         next(err);
     }
@@ -88,11 +83,11 @@ router.get('/bina/:id', async (req, res, next) => {
 
 // router.delete('/', async (req, res, next) => {
 //     try {
-//         const buildings = await Building.deleteMany();
-//         if (!buildings) {
-//             return res.status(404).send({ message: 'Buildings not found' });
+//         const helps = await help.deleteMany();
+//         if (!helps) {
+//             return res.status(404).send({ message: 'helps not found' });
 //         }
-//         res.send({ message: 'Buildings deleted successfully' });
+//         res.send({ message: 'helps deleted successfully' });
 //     } catch (err) {
 //         next(err);
 //     }
@@ -104,21 +99,21 @@ router.get('/bina/:id', async (req, res, next) => {
 //         if (!city || !neighborhood || !name || !host) {
 //             return res.status(400).send({ error: 'Missing required properties' });
 //         }
-//         let building = await Building.findById(req.params.id);
-//         if (!building) {
-//             return res.status(404).send({ message: 'Building not found' });
+//         let help = await help.findById(req.params.id);
+//         if (!help) {
+//             return res.status(404).send({ message: 'help not found' });
 //         }
-//         building.city = city;
-//         building.neighborhood = neighborhood;
-//         building.name = name;
-//         const hostIndex = building.hosts.findIndex(existingHost => existingHost.name === host.name);
+//         help.city = city;
+//         help.neighborhood = neighborhood;
+//         help.name = name;
+//         const hostIndex = help.hosts.findIndex(existingHost => existingHost.name === host.name);
 //         if (hostIndex === -1) {
-//             building.hosts.push(host);
+//             help.hosts.push(host);
 //         } else {
-//             building.hosts[hostIndex] = host;
+//             help.hosts[hostIndex] = host;
 //         }
-//         await building.save();
-//         res.send({ message: 'Building and host updated successfully' });
+//         await help.save();
+//         res.send({ message: 'help and host updated successfully' });
 //     } catch (err) {
 //         next(err);
 //     }
@@ -126,12 +121,12 @@ router.get('/bina/:id', async (req, res, next) => {
 
 // router.delete('/bina/:id', async (req, res, next) => {
 //     try {
-//         const building = await Building.findById(req.params.id);
-//         if (!building) {
-//             return res.status(404).send({ message: 'Building not found' });
+//         const help = await help.findById(req.params.id);
+//         if (!help) {
+//             return res.status(404).send({ message: 'help not found' });
 //         }
-//         await building.remove();
-//         res.send({ message: 'Building deleted successfully' });
+//         await help.remove();
+//         res.send({ message: 'help deleted successfully' });
 //     } catch (err) {
 //         next(err);
 //     }
@@ -147,47 +142,32 @@ router.get('/bina/:id', async (req, res, next) => {
 /// YOL ROUTES
 
 
-router.post('/yol', async (req, res) => {
-    const { from, to, description, status } = req.body;
-
-    const traffic = new Traffic({ from, to, description, status });
-    try {
-        await traffic.save();
-        res.send(traffic);
-    } catch (err) {
-        res.status(400).send(err);
-    }
-});
-
-router.get('/yol', async (req, res) => {
-    try {
-        const routes = await Traffic.find();
-        res.send(routes);
-    } catch (err) {
-        res.status(400).send(err);
-    }
-});
-
-router.get('/yol/:id', async (req, res) => {
-    const { id } = req.params;
-
-    try {
-        const route = await Traffic.findById(id);
-        if (!route) {
-            return res.status(404).send({ error: 'Route not found' });
-        }
-        res.send(route);
-    } catch (err) {
-        res.status(400).send(err);
-    }
-});
-
-// router.put('/yol/:id', async (req, res) => {
-//     const { id } = req.params;
+// router.post('/yol', async (req, res) => {
 //     const { from, to, description, status } = req.body;
 
+//     const traffic = new Traffic({ from, to, description, status });
 //     try {
-//         const route = await Traffic.findByIdAndUpdate(id, { from, to, description, status }, { new: true });
+//         await traffic.save();
+//         res.send(traffic);
+//     } catch (err) {
+//         res.status(400).send(err);
+//     }
+// });
+
+// router.get('/yol', async (req, res) => {
+//     try {
+//         const routes = await Traffic.find();
+//         res.send(routes);
+//     } catch (err) {
+//         res.status(400).send(err);
+//     }
+// });
+
+// router.get('/yol/:id', async (req, res) => {
+//     const { id } = req.params;
+
+//     try {
+//         const route = await Traffic.findById(id);
 //         if (!route) {
 //             return res.status(404).send({ error: 'Route not found' });
 //         }
@@ -197,60 +177,75 @@ router.get('/yol/:id', async (req, res) => {
 //     }
 // });
 
+// // router.put('/yol/:id', async (req, res) => {
+// //     const { id } = req.params;
+// //     const { from, to, description, status } = req.body;
 
-router.post('/yardim', async (req, res) => {
-    const supply = new Supply({
-        name: req.body.name,
-        no: req.body.no,
-        description: req.body.description,
-        city: req.body.city,
-        address: req.body.address,
-        status: req.body.status
-    });
-
-    try {
-        await supply.save();
-        res.send({ message: 'Supply added successfully' });
-    } catch (error) {
-        res.status(400).send(error);
-    }
-});
+// //     try {
+// //         const route = await Traffic.findByIdAndUpdate(id, { from, to, description, status }, { new: true });
+// //         if (!route) {
+// //             return res.status(404).send({ error: 'Route not found' });
+// //         }
+// //         res.send(route);
+// //     } catch (err) {
+// //         res.status(400).send(err);
+// //     }
+// // });
 
 
-router.get('/yardim', async (req, res) => {
-    try {
-        const supplies = await Supply.find({});
-        res.send(supplies);
-    } catch (error) {
-        res.status(500).send(error);
-    }
-});
+// router.post('/yardim', async (req, res) => {
+//     const supply = new Supply({
+//         name: req.body.name,
+//         no: req.body.no,
+//         description: req.body.description,
+//         city: req.body.city,
+//         address: req.body.address,
+//         status: req.body.status
+//     });
 
-router.get('/yardim/:id', async (req, res) => {
-    try {
-        const supply = await Supply.findById(req.params.id);
-        if (!supply) return res.status(404).send({ error: 'Supply not found' });
-        res.send(supply);
-    } catch (error) {
-        res.status(500).send(error);
-    }
-});
+//     try {
+//         await supply.save();
+//         res.send({ message: 'Supply added successfully' });
+//     } catch (error) {
+//         res.status(400).send(error);
+//     }
+// });
 
-router.get('/yardim/:city/:district', async (req, res) => {
-    try {
-        const city = req.params.city;
-        const district = req.params.district;
 
-        const supplies = await Supply.find({
-            'city.name': city,
-            'city.districts': district
-        });
-        if (!supplies) return res.status(404).send({ error: 'Supply not found' });
-        res.send(supplies);
-    } catch (error) {
-        res.status(500).send(error);
-    }
-});
+// router.get('/yardim', async (req, res) => {
+//     try {
+//         const supplies = await Supply.find({});
+//         res.send(supplies);
+//     } catch (error) {
+//         res.status(500).send(error);
+//     }
+// });
+
+// router.get('/yardim/:id', async (req, res) => {
+//     try {
+//         const supply = await Supply.findById(req.params.id);
+//         if (!supply) return res.status(404).send({ error: 'Supply not found' });
+//         res.send(supply);
+//     } catch (error) {
+//         res.status(500).send(error);
+//     }
+// });
+
+// router.get('/yardim/:city/:district', async (req, res) => {
+//     try {
+//         const city = req.params.city;
+//         const district = req.params.district;
+
+//         const supplies = await Supply.find({
+//             'city.name': city,
+//             'city.districts': district
+//         });
+//         if (!supplies) return res.status(404).send({ error: 'Supply not found' });
+//         res.send(supplies);
+//     } catch (error) {
+//         res.status(500).send(error);
+//     }
+// });
 
 
 

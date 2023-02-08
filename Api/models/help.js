@@ -2,8 +2,11 @@ const mongoose = require('mongoose');
 
 
 
-const buildingSchema = new mongoose.Schema({
+const helpSchema = new mongoose.Schema({
     name: String,
+    type: {
+        enum: ['Barinma', 'Yiyecek', 'Isinma', 'Diger']
+    },
     city: {
         type: Object,
         enum: [
@@ -20,23 +23,14 @@ const buildingSchema = new mongoose.Schema({
         ],
     },
     neighborhood: String,
-    hosts: [
-        {
-            name: String,
-            contactNo: String,
-            status: {
-                type: String,
-                enum: ['Yardim Bekleniyor', 'Yardim Ediliyor', 'Yardim edildi'],
-                default: 'Yardim Bekleniyor'
-            }
-        }
-    ],
+    description: String,
+    phoneNumber: String,
     createdAt: {
         type: Date,
         default: Date.now
     }
 });
 
-const Building = mongoose.model('Building', buildingSchema);
+const Help = mongoose.model('Help', helpSchema);
 
-module.exports = Building;
+module.exports = Help;

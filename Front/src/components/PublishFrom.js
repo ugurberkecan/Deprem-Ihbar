@@ -21,17 +21,17 @@ const needEnum = [
 const PublishFrom = () => {
   const [provinceIndex, setProvinceIndex] = useState(0);
   const [data, setData] = useState({
+    type: null,
     city: {
       name: null,
       districts: null,
     },
-    hosts: {
-      status: null,
-      name: null,
-      contactNo: null,
-    },
+    name: null,
     neighborhood: null,
-    description: null
+    description: null,
+    phoneNumber: null,
+
+    
   });
   
   const SelectProvince = (param) => {
@@ -44,15 +44,15 @@ const PublishFrom = () => {
   }
 
   const SelectNeed = (param) => {
-    setData({...data, hosts: {...data.hosts, status: param}});
+    setData({...data, type: param});
   }
 
   const TypeFullName = (param) => {
-    setData({...data, hosts: {...data.hosts, name: param}});
+    setData({data, name: param});
   }
 
   const TypeContactNo = (param) => {
-    setData({...data, hosts: {...data.hosts, contactNo: param}});
+    setData({...data, phoneNumber: param});
   }
 
   const TypeDistrict = (param) => {
@@ -63,8 +63,8 @@ const PublishFrom = () => {
     setData({...data, description: param});
   }
 
-  const SubmitData = () => {
-    console.log(data);
+  const SubmitData = async () => {
+    
   }
 
   useEffect(() => {});
@@ -92,10 +92,10 @@ const PublishFrom = () => {
           )
         }
       </select>
-      <input className="form-input" placeholder='Ihtiyac sahibi isim soyisim' onBlur={(e) => TypeFullName(e.target.value)} />
-      <input className="form-input" placeholder='Mahalle / sokak / apartman' onBlur={(e) => TypeDistrict(e.target.value)} />
+      <input className="form-input" placeholder='Ihtiyac Sahibinin İsim/Soyisim' onBlur={(e) => TypeFullName(e.target.value)} />
+      <input className="form-input" placeholder='Mahalle / Sokak / Apartman' onBlur={(e) => TypeDistrict(e.target.value)} />
       <input className="form-input" placeholder='Aciklama' onBlur={(e) => TypeDesc(e.target.value)} />
-      <input type="tel" className="form-input" placeholder='Tel No' onBlur={(e) => TypeContactNo(e.target.value)} />
+      <input type="tel" className="form-input" placeholder='Tel Numara' onBlur={(e) => TypeContactNo(e.target.value)} />
       <button className="publish-button" onClick={() => SubmitData()}>ILAN EKLE</button>
     </div>
   )

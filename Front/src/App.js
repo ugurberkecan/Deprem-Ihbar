@@ -9,7 +9,8 @@ const App = () => {
   const [searchParam, setSearchParam] = useState('');
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch('http://localhost:3000/api/ihbar');
+      const res = await fetch('http://localhost:4000/api/ihbar/yardim');
+      console.log(res);
       const data = await res.json();
     };
     fetchData();
@@ -18,7 +19,7 @@ const App = () => {
   
   const search = async (param) => {
     console.log(param)
-    const response = await axios.get(`http://localhost:5000/api/ihbar/bina/search?name=${param}`);
+    const response = await axios.get(`http://localhost:4000/api/ihbar/yardim/search?name=${param}`);
     setSearchData(response.data);
     setSearchParam(param);
     console.log(response.data)
