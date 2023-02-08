@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const session = require('express-session');
 const routes = require('../routes.js');
-var cors = require('cors')
 
 app.use(session({
   secret: 'mySecretKeyyy',
@@ -12,18 +11,15 @@ app.use(session({
 
 
 
-app.use(cors());
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use(function (req, res, next) {
-  //Enabling CORS
+app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
-    next();
-  });
+  res.header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
+  next();
+});
 
 
 
