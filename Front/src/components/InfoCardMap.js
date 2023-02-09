@@ -7,7 +7,7 @@ export default function InfoCardMap({searchDatas, searchParam}) {
 
   useEffect(() => {
     const FetchData = async (data) => {
-      const response = await axios.get('https://deprem-ihbar-dm61.vercel.app/api/ihbar/yardim');
+      const response = await axios.get('https://deprem-ihbar-backend.vercel.app/api/ihbar/yardim');
       setDatas(response.data);
     }
 
