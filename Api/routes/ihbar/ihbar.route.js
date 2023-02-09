@@ -13,6 +13,8 @@ router.post('/yardim', [
     check('phoneNumber').not().isEmpty().withMessage('Phone number is required'),
 ], async (req, res, next) => {
 
+    if(req.method === 'OPTIONS') { return res.status(200).json(({ body: "OK" })) };
+
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
