@@ -2,9 +2,9 @@ const express = require('express');
 const app = express();
 const session = require('express-session');
 const routes = require('../routes.js');
-var cors = require('cors')
+const cors = require('./cors.js');
 
-app.use(cors());
+app.use(cors);
 
 app.use(session({
   secret: 'mySecretKeyyy',
