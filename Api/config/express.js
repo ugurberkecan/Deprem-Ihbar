@@ -7,7 +7,6 @@ const cors = require('./cors.js');
 
 app.use(cors);
 
-app.use(cors())
 
 app.use(session({
   secret: 'mySecretKeyyy',
