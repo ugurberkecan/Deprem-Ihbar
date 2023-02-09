@@ -46,12 +46,12 @@ const handler = (req, res) => {
 
 app.use(allowCors(handler));
 
+app.options('/*', (_, res) => {
+    res.sendStatus(200);
+});
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
 });
 
-app.options('/*', (_, res) => {
-    res.sendStatus(200);
-});
 
