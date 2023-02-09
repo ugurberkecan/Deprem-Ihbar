@@ -65,11 +65,11 @@ const PublishFrom = () => {
   const SubmitData = async () => {
     console.log(data);
     const respPost = await axios.post('https://deprem-ihbar-backend.vercel.app/api/ihbar/yardim', data);
-    if(respPost.status === 200) {
-        window.location.replace('/');
-    } else (
-        alert("Lutfen tum formu eksiksiz doldurunuz")
-    )
+    // if(respPost.status === 200) {
+    //     window.location.replace('/');
+    // } else (
+    //     alert("Lutfen tum formu eksiksiz doldurunuz")
+    // )
   }
 
   useEffect(() => {});
