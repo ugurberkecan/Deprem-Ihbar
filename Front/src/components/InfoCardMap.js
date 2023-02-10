@@ -24,7 +24,7 @@ export default function InfoCardMap({searchDatas, searchParam}) {
   return (
     <div className="info-card-display-main">
       {datas &&
-        datas.map((item, i) =>
+        datas.slice(0).reverse().map((item, i) =>
           <InfoCard data={item} key={i} />
         )
       }

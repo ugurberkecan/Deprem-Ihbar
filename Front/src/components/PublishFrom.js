@@ -22,10 +22,10 @@ const needEnum = [
 const PublishFrom = () => {
   const [provinceIndex, setProvinceIndex] = useState(0);
   const [data, setData] = useState({
-    type: 'Diger',
+    type: null,
     city: {
-      name: 'Hatay',
-      districts: 'Antakya',
+      name: null,
+      districts: null,
     },
     name: null,
     neighborhood: null,
@@ -35,7 +35,7 @@ const PublishFrom = () => {
   
   const SelectProvince = (param) => {
     setProvinceIndex(param);
-    setData({...data, city: {...data.city, name: Places[param].name}});
+    setData({...data, city: {...data.city, name: Places[param].name, districts: Places[param].districts[0]}});
   }
 
   const SelectCity = (param) => {
@@ -64,12 +64,15 @@ const PublishFrom = () => {
 
   const SubmitData = async () => {
     console.log(data);
-    const respPost = await axios.post('https://deprem-ihbar-backend.vercel.app/api/ihbar/yardim', data);
-    if(respPost.status === 200) {
+
+    try {
+      const respPost = await axios.post('https://deprem-ihbar-backend.vercel.app/api/ihbar/yardim', data);
+      if(respPost.status === 200) {
         window.location.replace('/');
-    } else (
-        alert("Lutfen tum formu eksiksiz doldurunuz")
-    )
+      }
+    } catch (e) {
+      alert("Lutfen tum formu eksiksiz doldurunuz");
+    }
   }
 
   useEffect(() => {});
