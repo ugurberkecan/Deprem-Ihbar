@@ -16,7 +16,7 @@ const Places = [
 ];
 
 const needEnum = [
-  'Yardim turu', 'Barinma', 'Yiyecek', 'Isinma', 'Tüp', 'Jeneratör', 'Güvenlik', 'Yakit'
+  'Yardim turu', 'Barinma', 'Yiyecek', 'Isinma', 'Tüp', 'Jeneratör', 'Güvenlik', 'Yakit', 'Vinç', 'Termal Kamera'
 ];
 
 const PublishFrom = () => {
